@@ -595,8 +595,8 @@ button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
         <button type="button" role="radio" data-flow="edit" aria-checked="false">Edit a section</button>
       </div>
       <div class="seg view" role="radiogroup" aria-label="Explanation style">
-        <button type="button" role="radio" data-view="tech" aria-checked="true">Technical</button>
-        <button type="button" role="radio" data-view="biz" aria-checked="false">Business</button>
+        <button type="button" role="radio" data-view="tech" aria-checked="false">Technical</button>
+        <button type="button" role="radio" data-view="biz" aria-checked="true">Business</button>
       </div>
       <button type="button" class="walk" id="walkBtn" aria-pressed="false">Walk through the flow</button>
     </div>
@@ -1013,9 +1013,9 @@ const TEXT = {
 };
 
 /* ---------- State ---------- */
-const state = { view: "tech", flow: "gen", selected: null, variant: null, walk: -1, innerOpen: true };
+const state = { view: "biz", flow: "gen", selected: null, variant: null, walk: -1, innerOpen: true };
 try {
-  const v = localStorage.getItem("krh-flow-view"); if (v === "tech" || v === "biz") state.view = v;
+  const v = localStorage.getItem("krh-flow-view-v2"); if (v === "tech" || v === "biz") state.view = v;
   const f = localStorage.getItem("krh-flow-flow"); if (f === "gen" || f === "edit") state.flow = f;
 } catch (e) {}
 
@@ -1263,7 +1263,7 @@ $(".seg.view").addEventListener("click", e => {
   const b = e.target.closest("button[data-view]");
   if (!b || b.dataset.view === state.view) return;
   state.view = b.dataset.view;
-  try { localStorage.setItem("krh-flow-view", state.view); } catch (err) {}
+  try { localStorage.setItem("krh-flow-view-v2", state.view); } catch (err) {}
   renderLabels(); renderSelection(); renderPanel();
   requestAnimationFrame(drawWires);
 });
